@@ -1,0 +1,140 @@
+/* ESTILO GENERAL*/
+body,html{
+    height: 100%;
+  }
+html {
+    width: 100%;
+    height: 100%;
+    font-family: arial;
+  }
+
+  .body{
+
+    background-image:url("../img/carr3.jpg");
+background-repeat: no-repeat;
+background-attachment:fixed;
+background-size:100% 100%;
+  }
+  .login{
+    border-radius: 1px;
+    background-color: rgba(255, 255, 255, 0.11);
+    margin-top: 8%;
+  }
+  .caja p{
+    color: #fff;
+    margin-bottom: 11px;
+  }
+
+  .caja img{
+    margin-bottom: 11px;
+    margin-top: 15px;
+    border-radius: 100%;
+  }
+  .navbar-default {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: rgba(231, 231, 231, 0);
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: rgba(221, 221, 221, 0);
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: rgba(231, 231, 231, 0);
+}
+.navbar-default .navbar-nav > .active > a{
+    color: #fff;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+    color: #FFF;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+.navbar-default .navbar-toggle {
+    border-color: rgba(221, 221, 221, 0);
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: rgba(231, 231, 231, 0);
+}
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #FFFDFD;
+    background-color: transparent;
+}
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+
+
+.btn {
+    border-radius: 1px;
+}
+.btn-warning {
+    color: #FFF;
+    background-color: #68095C;
+    border-color: #68095C;
+}
+
+.btn-warning:hover {
+    color: #FFF;
+    background-color: #68095C;
+    border-color: #68095C;
+}
+
+.btn-warning.active, .btn-warning:active, .open > .dropdown-toggle.btn-warning {
+    color: #FFF;
+    background-color: #68095C;
+    border-color: #68095C;
+}
+.btn-warning.focus, .btn-warning:focus {
+    color: #FFF;
+    background-color: #68095C;
+    border-color: #68095C;
+}
+
+.btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning.focus:active, .btn-warning:active:focus, .btn-warning:active:hover, .open > .dropdown-toggle.btn-warning.focus, .open > .dropdown-toggle.btn-warning:focus, .open > .dropdown-toggle.btn-warning:hover {
+   color: #FFF;
+    background-color: #68095C;
+    border-color: #68095C;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+
+.btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.focus:active, .btn-primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus, .open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover {
+   color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+footer {
+        padding:20px 0px;
+        box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
+        position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+        width: 100%;
+        bottom: 0;/*MARGEN HACA ABAJO*/
+        z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+        left: 0; /* Depende el Ancho de donde se va a colocar */ 
+        background-color:#222;
+        color:#fff;      
+}

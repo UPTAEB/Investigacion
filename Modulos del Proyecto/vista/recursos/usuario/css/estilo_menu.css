@@ -1,0 +1,174 @@
+/*    ESTILO SOLAMENTE DEL MENU HORIZONTAL DINAMICO DEL SISTEMA*/
+* {
+	margin:0;
+	padding:0;
+}
+body{
+	background-color: #fff;
+}
+header {
+   margin-top: 0px;
+margin-bottom: 0px;
+width: 100%;
+overflow: hidden;
+height: 120px;
+position: relative;
+}
+a:focus, a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+nav {
+    top:-20px;
+    position: absolute;
+    left:0;
+    right:0;
+    margin:20px auto;
+    max-width:100%;
+    width:100%;
+}
+
+nav ul {
+	list-style:none;
+}
+
+nav > ul {
+	display:table;
+	overflow:hidden;
+	width:100%;
+	background:#000;
+	position: relative;
+}
+
+nav > ul li {
+	display:table-cell;
+}
+
+/*Sub-menu*/
+nav > ul > li:hover > ul {
+	display:block;
+	height:100%;
+}
+
+nav > ul > li > ul {
+	display:block;
+	position: absolute;
+	background:#000;
+	left:0;
+	right:0;
+	height:0%;
+	overflow: hidden;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+nav > ul li a {
+	color:#fff;
+	display:block;
+	line-height:20px;
+	padding:20px;
+	position: relative;
+	text-align:center;
+	text-decoration:none;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+nav > ul > li > ul > li a:hover {
+	background:#5DA5A2;
+	text-decoration: none;
+}
+
+nav > ul > li > a span {
+	background:#174459;
+	display:block;
+	height:100%;
+	left:0px;
+	position:absolute;
+	top:-55px;
+	width:100%;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+
+
+nav > ul > li > a span .glyphicon {
+	display:block;
+	line-height:60px;
+}
+
+nav > ul > li > a:hover > span {
+	top:0;
+}
+
+/*Colores*/
+nav ul li a .primero {
+	background:#0E5061;
+}
+
+nav ul li a .segundo {
+	background:#5DA5A2;
+}
+
+nav ul li a .tercero {
+	background:#F25724;
+}
+
+nav ul li a .cuarto {
+	background:#174459;
+}
+
+nav ul li a .quinto {
+	background:#37A4D9;
+}
+
+
+
+@media screen and (max-width:600px) {
+	body {
+		background:#fff;
+	}
+
+	nav > ul > li > a span {
+		top:0;
+		height:60px;
+	}
+
+	nav > ul > li > ul {
+		height:100%;
+	}
+}
+
+/*personalizando bootstrap*/
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #0e74df;
+}
+
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #0e74df;
+    border-color: #ddd;
+}
+.container {
+    padding: 16px 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 30px 0 rgba(14, 12, 12, 0.27);
+}
+    
+.lista{
+	padding-right: 0px;
+}

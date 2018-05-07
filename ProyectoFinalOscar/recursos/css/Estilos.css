@@ -1,0 +1,105 @@
+			body{
+				width: 100%;
+				margin: auto;
+				background: #D8E2DE;
+			}
+
+
+			* {
+				margin:0px;
+				padding:0px;
+			    background-color: transparent;
+				}
+#menu
+{
+	width: 100%;
+	height: 50px;
+	float: left;
+}
+
+#ladoizquierdo
+{
+	width: 20%;
+	height: 800px;
+	float: left;
+	
+	background:url(../img/uptaebazul.png);
+	background-size: 100% ;
+
+	
+
+}
+
+#centro
+{
+	width: 60%;
+	height: 800px;
+	float: left;
+	background-color:#1AAFDB; 
+   
+   
+}
+
+#ladoderecho
+{
+	width: 20%;
+	height: 800px;
+	float: left;
+    background:url(../img/uptaeb.png);
+	background-size: 100% 35%;
+}
+	
+			
+			#header {
+				margin:auto;
+				width:100%;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav {
+				width:100%; /*Le establecemos un ancho*/
+				margin:0 auto; /*Centramos automaticamente*/
+			}
+
+			.nav > li {
+				float:left;
+				min-width:16.665%;
+				max-width:16.665%;
+				text-align:center;
+			}
+			
+			.nav li a {
+				background-color:#426BC9;
+				color:#fff;
+				text-decoration:none;
+				padding:10px 12px;
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:black;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+

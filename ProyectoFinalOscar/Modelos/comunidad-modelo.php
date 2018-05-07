@@ -70,6 +70,34 @@ class Comunidad extends Conexion
 	return $this->parroquia;
 	}
 
+	public function getAll()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT  *FROM comunidad';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$respuestaArreglo += ['estatus' => true];
+			} catch (PDOException $e) {
+				$errorReturn = ['estatus' => false];
+				$errorReturn += ['info' => "error sql:{$e}"];
+
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
+
+
 public function registrar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa

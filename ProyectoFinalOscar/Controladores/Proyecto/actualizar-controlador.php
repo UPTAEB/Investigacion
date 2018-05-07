@@ -6,8 +6,6 @@ if (!empty($_POST))
 		$objUsuario->setTitulo($_POST['titulo']);
 		$objUsuario->setObjetivo_General($_POST['objetivo_general']);
 		$objUsuario->setObjetivo_Especifico($_POST['objetivo_especifico']);
-		$objUsuario->setResumen($_POST['resumen']);
-		$objUsuario->setEstado($_POST['estado']);
 		
 		$r1=$objUsuario->consultar();
 		$mensaje = '';
@@ -26,5 +24,5 @@ if (!empty($_POST))
 		}else{//si hay un error al consultar
 			$mensaje = 'Error al actualizar el Usuario, contacte con el soporte';
 		}
-		require_once '../../Vistas/mensaje-vista.php';
+		require_once '../../Vistas/Proyecto/mensaje-vista.php';
 	}

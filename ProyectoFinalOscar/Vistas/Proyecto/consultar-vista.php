@@ -10,7 +10,7 @@
 	<h2>Consultar Proyecto</h2>
 	<nav>
 		<ul>
-					<li><a href="../../inicio.php">Inicio</a></li>
+					<li><a href="../../index.php">Inicio</a></li>
 			<li>
 				Usuario
 				<ul>
@@ -21,7 +21,7 @@
 		</ul>
 	</nav>
 	<form action="../../Controladores/Proyecto/consultar-controlador.php" method="post">
-		<input type="text" name="estado" id="estado" placeholder="Introduzca el estado" />
+		<input type="text" name="titulo" id="titulo" placeholder="Introduzca el estado" />
 		<input type="submit"    value="Buscar" />
 	</form>
 </body>

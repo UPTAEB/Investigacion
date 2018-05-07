@@ -32,8 +32,6 @@ if (isset($r1)) {
 		<input type="hidden" name="titulo" value="'.$valor['titulo'].'" />
 		<input type="text" name="objetivo_general" id="objetivo_general" value="'.$valor['objetivo_general'].'" placeholder="Objetivo General" required/>
 		<input type="text" name="objetivo_especifico" id="objetivo_especifico" value="'.$valor['objetivo_especifico'].'" placeholder="Objetivo Especifico" required/>
-		<input type="text" name="resumen" id="resumen" value="'.$valor['resumen'].'" placeholder="Resumen" required/>
-		<input type="text" name="estado" id="estado" value="'.$valor['estado'].'" placeholder="Estado" required/>
 		<input type="submit" value="Actualizar" />
 	</form>
 ';

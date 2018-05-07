@@ -22,7 +22,7 @@ abstract class Conexion extends PDO
 			parent::__construct("pgsql:host={$this->host} ;dbname={$this->bd} ;port={$this->port}", $this->user, $this->password, $this->options);//ejecutamos la conexion // parent::__construct se utiliza los metodo y atributos de la clase o clases que extendemos/heredamos
 		try {
 			$this->respuestaConexion = true; //asignamos true al atributo
-			$this->errorMensaje = "";
+			$this->errorMensaje = "";	
 		} catch (PDOException $e) { //entramos si se encuentra un error o exeption
 			$this->respuestaConexion = false; //asignamos el valor a false
 			$this->errorMensaje = $e; // asignamos el mensaje del error al atributo

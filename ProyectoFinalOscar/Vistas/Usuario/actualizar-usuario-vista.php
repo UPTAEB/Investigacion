@@ -28,14 +28,13 @@ if (isset($r1)) {
 		foreach ($r1 as $valor) {
 			if (isset($valor['cedula'])) {
 				$impr = '
-	<form action="../Controladores/actualizar-usuario-controlador.php" method="post">
+	<form action="../Usuario/actualizar-usuario-controlador.php" method="post">
 		<input type="hidden" name="cedula" value="'.$valor['cedula'].'" />
 		<input type="text" name="nombre" id="nombre" value="'.$valor['nombre'].'" placeholder="Introduzca su Nombre" required/>
 		<input type="text" name="apellido" id="apellido" value="'.$valor['apellido'].'" placeholder="Introduzca su apellido" required/>
 		<input type="text" name="correo" id="correo" value="'.$valor['correo'].'" placeholder="Introduzca su correo" required/>
 		<input type="text" name="direccion" id="direccion" value="'.$valor['direccion'].'" placeholder="Introduzca su direccion" required/>
 		<input type="text" name="telefono" id="telefono" value="'.$valor['telefono'].'" placeholder="Introduzca su telefono" required/>
-		<input type="text" name="rol" id="rol" value="'.$valor['rol'].'" placeholder="Introduzca su rol" required/>
 		<input type="password" name="clave" id="clave" value="" placeholder="Introduzca su Clave" required/>
 		<input type="submit" value="Actualizar" />
 	</form>

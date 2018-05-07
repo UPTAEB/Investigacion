@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Inicio-Sistema de Gestion Web</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../../recursos/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../recursos/css/dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/album.css">
+
+  </head>
+
+  <body>
+    <!-- Parte superior de la pagina --> 
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img  src="../../recursos/Imagenes/logo uptaeb.png" alt="Logo" width="35" height="35"> UPTAEB</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="../../index.php">Salir</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Panel izquierdo del menu --> 
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="../../Controladores/inicio/inicio-controlador.php">
+                  <span data-feather="file"></span>
+                  Inicio 
+                </a>
+              </li>
+              <li class="nav-item  active">
+                <a class="nav-link" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Estudios Avanzados
+                </a>
+              </li>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Registrar <span class="sr-only">(current)</span>
+                </a>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="users"></span>
+                  Investigaciones
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../../Controladores/inicio/index-consultar-controlador.php">
+                  <span data-feather="layers"></span>
+                  Consultar
+                </a>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>reportes</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Generar Constancias
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Reporte de Usuarios
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Reporte de los Macropoyectos
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    <!-- FIN del Panel izquierdo del menu -->
+    
+    <!-- Parte central de la pagina --> 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Registro de Nuevo Grupo de Investigacion</h1>
+          </div>
+         <main role="main">
+          <div class="container">
+            <div class="btn-group">
+                       <a  class="btn btn-sm btn-primary" href="../../Controladores/inicio/index-registrar-controlador.php">Volver</a>
+                    </div>
+                  <br/><br/>
+<form class="needs-validation" novalidate action="../../Controladores/GrupodeInvestigacion/registro-grupo_investigacion-controlador.php" method="post">
+  <div class="form-row">
+      <div class="col-md-4 mb-4">
+      <label for="validationTooltip05">Nombre</label>
+      <input type="text" class="form-control" id="validationTooltip05" name="nombre" placeholder="Nombre" required>
+      <div class="invalid-tooltip">
+        Please Introduzca Nombre.
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <label for="validationTooltip01">Area de Trabajo</label>
+      <input type="text" class="form-control" id="validationTooltip01" name="area_de_trabajo" placeholder="Area de Trabajo"  required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-5 mb-3">
+      <label for="validationTooltip02">Tipo de Unidad Investigacion</label>
+      <select class="form-control" name="tipo_unidad_investigacion">
+    <option>Seleccione</option>
+    <option>1. Historica</option>
+    <option>2. Documental</option>
+    <option>3. Descriptiva</option>
+    <option>4. Correlacional</option>
+    <option>5. Explicativa</option>
+    <option>6. Longitudinal</option>
+    <option>7. Experimental</option>
+    <option>8. Seccional</option>
+    </select>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-4">
+      <label for="validationTooltip04">Unidad de Trabajo</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+        </div>
+        <input type="text" class="form-control" id="validationTooltipUsername" name="unidad_trabajo" placeholder="unidad de trabajo" aria-describedby="validationTooltipUsernamePrepend" required>
+        <div class="invalid-tooltip">
+          Please ingrese un area de trabajo.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <label for="validationTooltip03">Fecha de Registro</label>
+      <input type="date" class="form-control" id="fecha" name="fecha_registro" placeholder="Contraseña" required>
+      <div class="invalid-tooltip">
+        Please Ingrese una fecha de registro
+      </div>
+    </div>
+        <div class="col-md-4 mb-4">
+      <label for="validationTooltip04">Tutor</label>
+      <input type="text" class="form-control" id="validationTooltip04" name="tutor" placeholder="Tutor" required>
+      <div class="invalid-tooltip">
+        Por favor Introduzca el nombre del tutor.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+  <div class="col-md 6 mb-6">
+  <center>
+     <button class="btn btn-primary" type="submit" name="agregar">Registrar Usuario</button>
+        <button type="reset" class="btn btn-danger">Limpiar Campo</button>
+  </center>
+  <hr/>
+  </div>
+  </div>
+</form>
+</div>
+         </main>
+          <center>
+  <footer><div id="pie_pagina">Sistema Creado por: Oscar Alejandro Conde Mendoza<br />
+     Venezuela-Estado Lara <br />
+     Copyright © 2021</div></footer>    
+</center>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

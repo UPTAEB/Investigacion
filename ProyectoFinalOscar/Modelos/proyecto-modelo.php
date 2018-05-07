@@ -10,11 +10,9 @@ class Proyecto extends Conexion
 	protected $titulo;
 	protected $objetivo_general;
 	protected $objetivo_especifico;
-	protected $resumen;
 	protected $id_comunidad;
 	protected $id_macroproyecto;
-	protected $id_grupo;
-	protected $estado;
+	protected $id_linea_investigacion;
 
 	public function __construct()
 	{
@@ -59,15 +57,6 @@ class Proyecto extends Conexion
 		return $this->objetivo_especifico;
 	}
 
-		public function setResumen($resumen)
-	{
-		$this->resumen = $resumen;
-	}
-	public function getResumen()
-	{
-		return $this->resumen;
-	}
-
 		public function setId_Comunidad($id_comunidad)
 	{
 		$this->id_comunidad = $id_comunidad;
@@ -86,29 +75,44 @@ class Proyecto extends Conexion
 		return $this->id_macroproyecto;
 	}
 
-	public function setId_Grupo($id_grupo)
+	public function setId_linea_investigacion($id_linea_investigacion)
 	{
-		$this->id_grupo = $id_grupo;
+		$this->id_linea_investigacion = $id_linea_investigacion;
 	}
-	public function getId_Grupo()
+	public function getId_linea_investigacion()
 	{
-		return $this->id_grupo;
+		return $this->id_linea_investigacion;
 	}
 
-	public function setEstado($estado)
+		public function getLastId()
 	{
-		$this->estado = $estado;
-	}
-	public function getEstado()
-	{
-		return $this->estado;
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT id_proyecto FROM proyecto ORDER BY id_proyecto  DESC LIMIT 1;';
+			$respuestaArreglo = [];
+			$id = 0;
+			try {
+				$strExec = Conexion::prepare($strSql);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				foreach ($respuestaArreglo as $valor) {
+					$id = $valor['id_proyecto'];
+				}
+			} catch (PDOException $e) {
+				
+				return $id;
+			}
+
+			return $id;
+		} else {
+			return $id;
+		}
 	}
 
 	//metodos para operar con la base de datos
 	public function registrar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa
-			$strSql = 'INSERT INTO proyecto (titulo, objetivo_general, objetivo_especifico, resumen, id_comunidad, id_macroproyecto, id_grupo, estado) VALUES (:titulo, :objetivo_general, :objetivo_especifico, :resumen, :id_comunidad, :id_macroproyecto, :id_grupo, :estado )'; //realizamos una cadena de texto con la instruccion sql a realizar
+			$strSql = 'INSERT INTO proyecto (titulo, objetivo_general, objetivo_especifico, id_comunidad, id_macroproyecto, id_linea_investigacion) VALUES (:titulo, :objetivo_general, :objetivo_especifico, :id_comunidad, :id_macroproyecto, :id_linea_investigacion)'; //realizamos una cadena de texto con la instruccion sql a realizar
 			$respuestaArreglo = '';  //definimos la variable a retornar los datos de la ejecucion de la instruccion sql
 			try {
 				$strExec = Conexion::prepare($strSql); // preparamos la sentencia
@@ -116,11 +120,9 @@ class Proyecto extends Conexion
 				$strExec->bindValue(':titulo', $this->titulo); // Vincula un valor a un parámetro
 				$strExec->bindValue(':objetivo_general', $this->objetivo_general); // Vincula un valor a un parámetro
 				$strExec->bindValue(':objetivo_especifico', $this->objetivo_especifico); // Vincula un valor a un parámetro
-				$strExec->bindValue(':resumen', $this->resumen); // Vincula un valor a un parámetro
-				$strExec->bindValue(':id_comunidad', $this->id_comunidad); // Vincula un valor a un parámetro
-				$strExec->bindValue(':id_macroproyecto', $this->id_macroproyecto); // Vincula un valor a un parámetro
-				$strExec->bindValue(':id_grupo', $this->id_grupo); // Vincula un valor a un parámetro
-				$strExec->bindValue(':estado', $this->estado); // Vincula un valor a un parámetro
+				$strExec->bindValue(':id_comunidad', $this->id_comunidad);
+				$strExec->bindValue(':id_macroproyecto', $this->id_macroproyecto);
+				$strExec->bindValue(':id_linea_investigacion', $this->id_linea_investigacion);
 				$strExec->execute(); //ejecutamos la instruccion sql
 				$respuestaArreglo = $strExec->fetchAll(); //retornamos todos los datos de la ejecucion
 				$respuestaArreglo += ['estatus' => true];
@@ -143,7 +145,7 @@ class Proyecto extends Conexion
 	public function consultar()
 	{
 		if (Conexion::getEstatusConexion()) {
-			$strSql = 'SELECT titulo, objetivo_general, objetivo_especifico, resumen, estado FROM proyecto WHERE titulo=:titulo';
+			$strSql = 'SELECT *FROM proyecto WHERE titulo=:titulo';
 			$respuestaArreglo = '';
 			try {
 				$strExec = Conexion::prepare($strSql);
@@ -168,15 +170,15 @@ class Proyecto extends Conexion
 		}
 	}
 
-	public function consultarNombreUsuario()
+	public function consultarProyecto()
 	{
 		if (Conexion::getEstatusConexion()) {
 						
-			$strSql = 'SELECT  *FROM proyecto WHERE estado LIKE :estado';
+			$strSql = 'SELECT  *FROM proyecto WHERE titulo LIKE :titulo';
 			$respuestaArreglo = '';
 			try {
 				$strExec = Conexion::prepare($strSql);
-				$strExec->bindValue(':estado', "%$this->estado%");
+				$strExec->bindValue(':titulo', "%$this->titulo%");
 				$strExec->execute();
 				$respuestaArreglo = $strExec->fetchAll();
 				$respuestaArreglo += ['estatus' => true];
@@ -199,7 +201,7 @@ class Proyecto extends Conexion
 	public function actualizar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa
-		$strSql = 'UPDATE proyecto SET objetivo_general=:objetivo_general, objetivo_especifico=:objetivo_especifico, resumen=:resumen, estado=:estado WHERE titulo=:titulo'; //realizamos una cadena de texto con la instruccion sql a realizar
+		$strSql = 'UPDATE proyecto SET objetivo_general=:objetivo_general, objetivo_especifico=:objetivo_especifico WHERE titulo=:titulo'; //realizamos una cadena de texto con la instruccion sql a realizar
 			$respuestaArreglo = '';  //definimos la variable a retornar los datos de la ejecucion de la instruccion sql
 			try {
 				$strExec = Conexion::prepare($strSql); // preparamos la sentencia
@@ -208,8 +210,6 @@ class Proyecto extends Conexion
 				// http://php.net/manual/es/pdostatement.bindvalue.php
 				$strExec->bindValue(':objetivo_general', $this->objetivo_general);
 				$strExec->bindValue(':objetivo_especifico', $this->objetivo_especifico);
-				$strExec->bindValue(':resumen', $this->resumen);
-				$strExec->bindValue(':estado', $this->estado);
 				$strExec->execute(); //ejecutamos la instruccion sql
 				$respuestaArreglo = $strExec->fetchAll(); //retornamos todos los datos de la ejecucion
 				$respuestaArreglo += ['estatus' => true];

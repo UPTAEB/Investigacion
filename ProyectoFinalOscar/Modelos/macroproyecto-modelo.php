@@ -10,6 +10,7 @@ class Macroproyecto extends Conexion
 	protected $objetivo_estrategico;
 	protected $coordinador;
 	protected $estatus;
+	protected $id_investigacion;
 	
 	function __construct()
 	{
@@ -25,13 +26,13 @@ class Macroproyecto extends Conexion
 		return $this->id_macroproyecto;
 	}
 
-	public function setId_Programa($id_programa)
+	public function setId_Investigacion($id_investigacion)
 	{
-		$this->id_programa =$id_programa;
+		$this->id_investigacion =$id_investigacion;
 	}
-	public function getId_Programa()
+	public function getId_Investigacion()
 	{
-		return $this->id_programa;
+		return $this->id_investigacion;
 	}
 
 	public function setNombre($nombre)
@@ -70,10 +71,13 @@ class Macroproyecto extends Conexion
 		return $this->estatus;
 	}
 
+
+
+
 public function registrar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa
-			$strSql = 'INSERT INTO macroproyecto (nombre, objetivo_estrategico, coordinador, estatus ) VALUES (:nombre, :objetivo_estrategico, :coordinador, :estatus  )'; //realizamos una cadena de texto con la instruccion sql a realizar
+			$strSql = 'INSERT INTO macroproyecto (nombre, objetivo_estrategico, coordinador, estatus, id_investigacion ) VALUES (:nombre, :objetivo_estrategico, :coordinador, :estatus, :id_investigacion )'; //realizamos una cadena de texto con la instruccion sql a realizar
 			$respuestaArreglo = '';  //definimos la variable a retornar los datos de la ejecucion de la instruccion sql
 			try {
 				$strExec = Conexion::prepare($strSql); // preparamos la sentencia
@@ -82,6 +86,7 @@ public function registrar()
 				$strExec->bindValue(':objetivo_estrategico', $this->objetivo_estrategico); // Vincula un valor a un parámetro
 				$strExec->bindValue(':coordinador', $this->coordinador); // Vincula un valor a un parámetro
 				$strExec->bindValue(':estatus', $this->estatus); // Vincula un valor a un parámetro
+				$strExec->bindValue(':id_investigacion', $this->id_investigacion);
 				$strExec->execute(); //ejecutamos la instruccion sql
 				$respuestaArreglo = $strExec->fetchAll(); //retornamos todos los datos de la ejecucion
 				$respuestaArreglo += ['estatus' => true];
@@ -101,15 +106,121 @@ public function registrar()
 		}
 	}
 
-	public function consultar()
+	public function getLastId()
 	{
 		if (Conexion::getEstatusConexion()) {
-			$strSql = 'SELECT nombre, objetivo_estrategico, coordinador, estatus FROM macroproyecto WHERE nombre=:nombre';
+			$strSql = 'SELECT id_macroproyecto FROM macroproyecto ORDER BY id_macroproyecto  DESC LIMIT 1;';
+			$respuestaArreglo = [];
+			$id = 0;
+			try {
+				$strExec = Conexion::prepare($strSql);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				foreach ($respuestaArreglo as $valor) {
+					$id = $valor['id_macroproyecto'];
+				}
+			} catch (PDOException $e) {
+				
+				return $id;
+			}
+
+			return $id;
+		} else {
+			return $id;
+		}
+	}
+
+	public function getAll()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT *FROM macroproyecto';
 			$respuestaArreglo = '';
 			try {
 				$strExec = Conexion::prepare($strSql);
+				
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$respuestaArreglo += ['estatus' => true];
+			} catch (PDOException $e) {
+				$errorReturn = ['estatus' => false];
+				$errorReturn += ['info' => "error sql:{$e}"];
 
-				$strExec->bindValue(':nombre', $this->nombre);
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
+	public function getProyectosAsociados($id_macroproyecto)
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT p.titulo, p.objetivo_general, pr.siglas, c.nombre';
+            $strSql.='FROM  proyecto p, programa pr, comunidad c, linea_investigacion l';
+			$strSql.='WHERE p.id_linea_investigacion = l.id_linea_investigacion'; 
+			$strSql.='AND l.id_programa = pr.id_programa AND p.id_comunidad = c.id_comunidad AND p.id_macroproyecto = $id_macroproyecto';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$respuestaArreglo += ['estatus' => true];
+			} catch (PDOException $e) {
+				$errorReturn = ['estatus' => false];
+				$errorReturn += ['info' => "error sql:{$e}"];
+
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
+
+	public function consultar()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT *FROM macroproyecto WHERE nombre LIKE :nombre';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
+				$strExec->bindValue(':nombre', "%$this->nombre%");
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$respuestaArreglo += ['estatus' => true];
+			} catch (PDOException $e) {
+				$errorReturn = ['estatus' => false];
+				$errorReturn += ['info' => "error sql:{$e}"];
+
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
+	public function consultar2()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT *FROM macroproyecto';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
 				$strExec->execute();
 				$respuestaArreglo = $strExec->fetchAll();
 				$respuestaArreglo += ['estatus' => true];

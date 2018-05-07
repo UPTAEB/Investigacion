@@ -9,7 +9,6 @@ class Usuario extends Conexion
 	protected $id_usuario;
 	protected $nombre;
 	protected $direccion;
-	protected $rol;
 	protected $sexo;
 	protected $clave;
 	protected $apellido;
@@ -52,16 +51,6 @@ class Usuario extends Conexion
 	public function getDireccion()
 	{
 		return $this->direccion;
-	}
-
-		public function setRol($rol)
-	{
-		$this->rol = $rol;
-	}
-
-	public function getRol()
-	{
-		return $this->rol;
 	}
 
 		public function setSexo($sexo)
@@ -129,15 +118,13 @@ class Usuario extends Conexion
 	public function registrar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa
-			$strSql = 'INSERT INTO usuario (nombre, direccion, sexo, rol, clave, apellido, cedula, telefono, correo) VALUES (:nombre, :direccion, :sexo, :rol, :clave, :apellido, :cedula, :telefono, :correo )'; //realizamos una cadena de texto con la instruccion sql a realizar
+			$strSql = 'INSERT INTO usuario (nombre, direccion, clave, apellido, cedula, telefono, correo) VALUES (:nombre, :direccion, :clave, :apellido, :cedula, :telefono, :correo )'; //realizamos una cadena de texto con la instruccion sql a realizar
 			$respuestaArreglo = '';  //definimos la variable a retornar los datos de la ejecucion de la instruccion sql
 			try {
 				$strExec = Conexion::prepare($strSql); // preparamos la sentencia
 				//  http://php.net/manual/es/pdo.prepare.php
 				$strExec->bindValue(':nombre', $this->nombre); // Vincula un valor a un parámetro
 				$strExec->bindValue(':direccion', $this->direccion); // Vincula un valor a un parámetro
-				$strExec->bindValue(':sexo', $this->sexo); // Vincula un valor a un parámetro
-				$strExec->bindValue(':rol', $this->rol); // Vincula un valor a un parámetro
 				$strExec->bindValue(':clave', $this->clave); // Vincula un valor a un parámetro
 				$strExec->bindValue(':apellido', $this->apellido); // Vincula un valor a un parámetro
 				$strExec->bindValue(':cedula', $this->cedula); // Vincula un valor a un parámetro
@@ -162,15 +149,73 @@ class Usuario extends Conexion
 		}
 	}
 
+	public function ExisteUsuario()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT *FROM usuario WHERE clave=:clave AND correo=:correo';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
+
+				$strExec->bindValue(':clave', $this->clave);
+				$strExec->bindValue(':correo', $this->correo);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$totalrs =count($respuestaArreglo);
+				$respuestaArreglo += ['total' => $totalrs];
+
+			} catch (PDOException $e) {
+				$errorReturn = ['total' => 0];
+				$errorReturn += ['info' => "error sql:{$e}"];
+
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
 	public function consultar()
 	{
 		if (Conexion::getEstatusConexion()) {
-			$strSql = 'SELECT cedula, clave, nombre, apellido, direccion, sexo, rol, telefono, correo FROM usuario WHERE cedula=:cedula';
+			$strSql = 'SELECT cedula, clave, nombre, apellido, direccion, telefono, correo FROM usuario WHERE cedula=:cedula';
 			$respuestaArreglo = '';
 			try {
 				$strExec = Conexion::prepare($strSql);
 
 				$strExec->bindValue(':cedula', $this->cedula);
+				$strExec->execute();
+				$respuestaArreglo = $strExec->fetchAll();
+				$respuestaArreglo += ['estatus' => true];
+			} catch (PDOException $e) {
+				$errorReturn = ['estatus' => false];
+				$errorReturn += ['info' => "error sql:{$e}"];
+
+				return $errorReturn;
+			}
+
+			return $respuestaArreglo;
+		} else {
+			$errorReturn = ['estatus' => false];
+			$errorReturn += ['info' => 'error sql:'.Conexion::getErrorConexion()];
+
+			return $errorReturn;
+		}
+	}
+
+	public function getAll()
+	{
+		if (Conexion::getEstatusConexion()) {
+			$strSql = 'SELECT *FROM usuario';
+			$respuestaArreglo = '';
+			try {
+				$strExec = Conexion::prepare($strSql);
+
 				$strExec->execute();
 				$respuestaArreglo = $strExec->fetchAll();
 				$respuestaArreglo += ['estatus' => true];
@@ -200,8 +245,8 @@ class Usuario extends Conexion
 														SELECT  cedula, clave, nombre FROM usuario WHERE nombre LIKE ‘%ale%’;
 														La instrucción sql anterior retorna todos los nombren que contengan la cedena “ale”
 						 */
-			$strSql = 'SELECT  id_usuario, cedula, apellido, sexo, direccion, rol, telefono, correo, nombre FROM usuario WHERE nombre LIKE :nombre';
-			$respuestaArreglo = '';
+			$strSql = 'SELECT  id_usuario, cedula, apellido, direccion, telefono, correo, nombre FROM usuario WHERE nombre LIKE :nombre';
+			$respuestaArreglo = [];
 			try {
 				$strExec = Conexion::prepare($strSql);
 				$strExec->bindValue(':nombre', "$this->nombre%");
@@ -227,7 +272,7 @@ class Usuario extends Conexion
 	public function actualizar()
 	{
 		if (Conexion::getEstatusConexion()) { //verificamos que la conexion esta activa
-		$strSql = 'UPDATE usuario SET clave=:clave, apellido=:apellido, sexo=:sexo, direccion=:direccion, rol=:rol, telefono=:telefono, correo=:correo, nombre=:nombre WHERE cedula=:cedula'; //realizamos una cadena de texto con la instruccion sql a realizar
+		$strSql = 'UPDATE usuario SET clave=:clave, apellido=:apellido, direccion=:direccion, telefono=:telefono, correo=:correo, nombre=:nombre WHERE cedula=:cedula'; //realizamos una cadena de texto con la instruccion sql a realizar
 			$respuestaArreglo = '';  //definimos la variable a retornar los datos de la ejecucion de la instruccion sql
 			try {
 				$strExec = Conexion::prepare($strSql); // preparamos la sentencia
@@ -237,9 +282,7 @@ class Usuario extends Conexion
 				$strExec->bindValue(':clave', $this->clave);
 				$strExec->bindValue(':nombre', $this->nombre);
 				$strExec->bindValue(':apellido', $this->apellido);
-				$strExec->bindValue(':sexo', $this->sexo);
 				$strExec->bindValue(':direccion', $this->direccion);
-				$strExec->bindValue(':rol', $this->rol);
 				$strExec->bindValue(':telefono', $this->telefono);
 				$strExec->bindValue(':correo', $this->correo);
 				$strExec->execute(); //ejecutamos la instruccion sql
